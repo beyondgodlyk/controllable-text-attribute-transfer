@@ -7,6 +7,7 @@ import math, copy, time
 import torch.nn.utils.rnn as rnn_utils
 from data import get_cuda, to_var, calc_bleu
 import numpy as np
+from torch import linalg as LA
 
 
 def clones(module, N):
@@ -450,6 +451,7 @@ def fgim_attack(model, origin_data, target, ae_model, max_sequence_length, id_bo
             # print("data_grad")
             # print(data_grad)
             data = data - epsilon * data_grad
+            print("data norm after attack:", LA.vector_norm(data_grad).item())
             # print("epsilon * data_grad")
             # print((epsilon * data_grad))
             # print("data")
